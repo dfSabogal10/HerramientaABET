@@ -1,0 +1,31 @@
+{% extends "home.html" %}
+{% load staticfiles %}
+{% block script %}
+
+{% endblock %}
+{% block courses %}
+
+
+<!-- Page Content -->
+<h2>CURSOS</h2>
+<div class="row">
+
+    {% for curso in cursos %}
+    <div class="col-sm-4 py-2">
+    <div class="card" style="height: 235px;">
+                  <div id="herramienta_{{ curso.id }}_nombre" class="card-header text-center"><a href="{% url 'curso' curso.id %}"> {{ curso.nombre }}</a></div>
+                  <div class="card-body" >
+                    <h6>{{ curso.area }}</h6>
+                    <hr />
+                      <p class="card-text">
+                      {% for profesor in curso.profesor_set.all %}
+                    {{ profesor.first_name |slice:"125" }} {{profesor.last_name|slice:"125" }},
+                      {% endfor %}
+                      </p>
+                  </div>
+              </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

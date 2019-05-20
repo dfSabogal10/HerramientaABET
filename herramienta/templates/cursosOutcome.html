@@ -1,0 +1,69 @@
+{% extends "home.html" %}
+{% load staticfiles %}
+{% block script %}
+
+{% endblock %}
+{% block courses %}
+
+
+<!-- Page Content -->
+<div>
+<div>
+
+ <div>
+  <div class="row">
+     <div class="container col-8">
+     <h2>CURSOS QUE DESARROLLAN OUTCOME:</h2>
+      </div>
+   <div class="container col-4">
+     <select id="outcomesSelect" onchange="getCursos()" class="form-control">
+        {%for outcome in outcomes %}
+         <option value="{{outcome.literal}}">outcome {{outcome.literal}}</option>
+        {%endfor%}
+      </select>
+          </div>
+
+   </div>
+     <div id="cursos" class="row">
+
+    </div>
+
+</div>
+
+<script>
+function getCursos() {
+var dataa={"outcome": $("#outcomesSelect").children("option:selected").val()};
+$.ajax({
+  type: "POST",
+  url: '/herramienta/cursosoutcomerest',
+  data: dataa,
+  success: function (data) {
+        console.log(typeof(data))
+        $(".col-sm-4").remove()
+        $.each(JSON.parse(data), function (i, item) {
+            console.log(data)
+
+            $("#cursos").append(
+                '<div class="col-sm-4 py-2">'+
+                '<div class="card" style="height: 235px;">'+
+                  '<div id="herramienta_'+item.pk+'_nombre" class="card-header text-center"><a href="/herramienta/curso/'+item.pk+'">'+ item.fields.nombre+'</a></div>'+
+                  '<div class="card-body" >'+
+                    '<h6>'+item.fields.area+'</h6>'+
+                    '<hr />'+
+                  '</div>'+
+                    '</div>'+
+                '</div>'+
+            '</div>'
+
+            );
+        })
+    },
+
+});
+
+};
+$( document ).ready(function() {
+    getCursos();
+});
+</script>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Outcomes ABET - IIND</title>
+
+        <link href="{%  static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/shop-homepage.css' %}" rel="stylesheet">
+
+        <style type="text/css">
+
+            .jumbotron {
+            background: #532f8c;
+            color: white;
+            padding-bottom: 80px
+            }
+            .jumbotron .btn-primary {
+            background: #845ac7;
+            border-color: #845ac7
+            }
+            .jumbotron .btn-primary:hover {
+            background: #7646c1
+            }
+            .jumbotron p {
+            color: #d9ccee;
+            max-width: 75%;
+            margin: 1em auto 2em
+            }
+            .navbar+.jumbotron {
+            margin-top: -20px
+            }
+            .jumbotron .lang-logo {
+            display: block;
+            background: #b01302;
+            border-radius: 50%;
+            overflow: hidden;
+            width: 100px;
+            height: 100px;
+            margin: auto;
+            border: 2px solid white
+            }
+            .jumbotron .lang-logo img {
+            max-width: 100%
+            }
+            select.form-control:not([size]):not([multiple]){
+                height: 34px;
+            }
+            .banner{
+                color: white;
+            }
+
+        </style>
+    </head>
+    <body>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.3.5/build/vega.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@3.2.1/build/vega-lite.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@4.0.0/build/vega-embed.js"></script>
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand  fixed-top" style="background: white">
+            <div class="container" >
+                <a class="navbar-brand" href="https://uniandes.edu.co">
+                    <img src="https://investigaciones.uniandes.edu.co/wp-content/themes/vicerrectoria001/images/logo.png" width="50%" height="50%" alt="">
+                </a>
+                <button id="span_button" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <span class="navbar-text">
+                        Departamento de Ingeniería Industrial
+                    </span>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'index' %}">Home
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                         {% if not user.is_authenticated %}
+                        <li class="nav-item">
+                            <a id="login" class="nav-link" href="{% url 'loginview' %}">Login</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" >{{ request.user.username }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="cerrar_sesion" class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+        {% block content %}{% endblock %}
+
+
+
+
+    {% block script %}
+    {% endblock %}
+    </body>
+
+</html>

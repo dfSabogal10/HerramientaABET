@@ -1,0 +1,145 @@
+{% extends "home.html" %}
+{% load staticfiles %}
+{% block script %}
+
+{% endblock %}
+{% block courses %}
+
+
+<!-- Page Content -->
+<h2>{{curso.nombre}}</h2>
+<div class="row">
+	<div class="container col-8" align="center" style="padding: 2%">
+		<div id="vis">
+            visualizacion
+		</div>
+	</div>
+    <div class="container col-4" align="center" style="padding: 2%">
+        <p align="left">Seleccione el outcome del cual desea visualizar las mediciones:</p>
+        <select id="outcomesSelect" onchange="getMedidas()" class="form-control">
+            {%for outcome in curso.outcomes.all %}
+			 	<option value="{{outcome.literal}}">outcome {{outcome.literal}}</option>
+			{%endfor%}
+		</select>
+    </div>
+</div>
+<div class="row">
+    <div class="container col-8" align="center" style="padding: 2%">
+		<button type="button" class="btn btn-primary" onclick="showModal()" >Ver herramientas de medición</button>
+        <button type="button" class="btn btn-primary" onclick="showModal2()">Ver planes de mejora</button>
+
+	</div>
+    <div class="container col-4" align="center" style="padding: 2%">
+    </div>
+</div>
+
+
+<!-- Herramientas Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+  <div class="modal-dialog modal-dialog-centered"  role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ver herramientas de medición</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Escoge el periodo del que deseas ver las herramientas de medición:</p>
+          <select id="periodoSelect" class="form-control">
+            {%for periodo in periodos %}
+			 	<option value="{{periodo}}">{{periodo}}</option>
+			{%endfor%}
+		</select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Continuar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Planes Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="false">
+  <div class="modal-dialog modal-dialog-centered"  role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Ver planes de mejora</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Escoge el periodo del que deseas ver los planes de mejora:</p>
+          <select id="periodoSelect2" class="form-control">
+            {%for periodo in periodos %}
+			 	<option value="{{periodo}}">{{periodo}}</option>
+			{%endfor%}
+		</select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Continuar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function showModal() {
+    $("#myModal").modal();
+  };
+    function showModal2() {
+    $("#myModal2").modal();
+  };
+</script>
+<script>
+	function getMedidas(){
+	var dataa={"outcome": $("#outcomesSelect").children("option:selected").val(), "curso": "{{curso.nombre}}"};
+	$.ajax({
+  type: "POST",
+  url: '/herramienta/medidasoutcomeCurso',
+  data: dataa,
+  success: function (data) {
+	var graphdata=[];
+	 $.each(JSON.parse(data), function (i, item) {
+	console.log(item.fields)
+	graphdata.push(item.fields)
+	});
+	console.log(graphdata);
+	var vlSpec = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+		"width": 400,
+  		"height": 300,
+        data: {
+          values: graphdata
+        },
+        "mark": {
+            "type": "line",
+            "point": true
+          },
+        encoding: {
+          x: {field: 'periodo', type: 'nominal'},
+          y: {
+            field: 'valor',
+            type: 'quantitative',
+            axis: {
+              title: 'medicion'
+            },
+
+          }
+        }
+      };
+
+      // Embed the visualization in the container with id `vis`
+      vegaEmbed('#vis', vlSpec);
+		},
+
+	});
+	}
+	$( document ).ready(function() {
+    getMedidas();
+	});
+
+</script>
+
+{% endblock %}

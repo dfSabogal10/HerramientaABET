@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block script %}
+
+{% endblock %}
+{% block content %}
+
+
+<!-- Page Content -->
+{% if not user.is_authenticated %}
+
+<div class="row" style="background: #000;" >
+    <div class="containter col-11" style="padding: 3%">
+            <h1 class="banner "align="center">Medicion de outcomes ABET</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="container col-8" align="center" style="padding: 2%">
+        <h2>Outcomes - ABET</h2>
+    <table border="0" cellpadding="0" align="center">
+					<tbody>
+						<tr>
+							<td><img src="https://industrial.uniandes.edu.co/recursos/imagenes/ObjetivosEdu/letras_03.png" border="0" alt="" width="19" height="21" style="margin-left: 0px; margin-right: 10px; border: 0px;">
+							</td>
+							<td style="text-align: justify;">Apply knowledge of mathematics, science, and engineering.</td>
+						</tr>
+						<tr>
+							<td><img src="https://industrial.uniandes.edu.co/recursos/imagenes/ObjetivosEdu/letras_09.png" border="0" alt="" width="19" height="21" style="margin-left: 0px; margin-right: 10px; border: 0px;">
+							</td>
+							<td style="text-align: justify;">Design and conduct experiments, and analyze and interpret data.</td>
+						</tr>
+						<tr>
+							<td align="left" valign="top"><img src="https://industrial.uniandes.edu.co/recursos/imagenes/ObjetivosEdu/letras_12.png" border="0" alt="" width="19" height="22" style="margin-left: 0px; margin-right: 10px; border: 0px;">
+							</td>
+							<td style="text-align: justify;">Design a system, component, or process to meet desired needs within realistic constraints such as those of economic, environmental, social, political, ethical, health and safety, manufacturability and sustainability nature.</td>
+						</tr>
+						<tr>
+							<td><img src="https://industrial.uniandes.edu.co/recursos/imagenes/ObjetivosEdu/letras_18.png" border="0" alt="" width="19" height="20" style="margin-left: 0px; margin-right: 10px; border: 0px;">
+							</td>
+							<td style="text-align: justify;">Function in multidisciplinary teams.</td>
+						</tr>
+						<tr>
+							<td><img src="https://industrial.uniandes.edu.co/recursos/imagenes/ObjetivosEdu/letras_21.png" border="0" alt="" width="19" height="21" style="margin-left: 0px; margin-right: 10px; border: 0px;">
+							</td>
+							<td style="text-align: justify;">Identify, formulate, and solve engineering problems.</td>
+						</tr>
+						<tr>
+							<td><img src="https://industrial.uniandes.edu.co/recursos/imagenes/ObjetivosEdu/letras_23.png" border="0" alt="" width="19" height="21" style="margin-left: 0px; margin-right: 10px; border: 0px;">
+							</td>
+							<td style="text-align: justify;">Develop an understanding of professional and ethical responsibility.</td>
+						</tr>
+						<tr>
+							<td><img src="https://industrial.uniandes.edu.co/recursos/imagenes/ObjetivosEdu/letras_25.png" border="0" alt="" width="19" height="22" style="margin-left: 0px; margin-right: 10px; border: 0px;">
+							</td>
+							<td style="text-align: justify;">Communicate effectively.</td>
+						</tr>
+						<tr>
+							<td align="left" valign="top"><img src="https://industrial.uniandes.edu.co/recursos/imagenes/ObjetivosEdu/letras_05.png" border="0" alt="" width="19" height="21" style="margin-left: 0px; margin-right: 10px; border: 0px;">
+							</td>
+							<td style="text-align: justify;">The broad education necessary to understand the impact of engineering solutions in a global, economic, environmental, and societal context.</td>
+						</tr>
+						<tr>
+							<td align="left" valign="top"><img src="https://industrial.uniandes.edu.co/recursos/imagenes/ObjetivosEdu/letras_11.png" border="0" alt="" width="19" height="21" style="margin-left: 0px; margin-right: 10px; border: 0px;">
+							</td>
+							<td style="text-align: justify;">Acquire the broad education necessary to understand the impact of engineering solutions on global, economic, environmental, and societal contexts.</td>
+						</tr>
+						<tr>
+							<td><img src="https://industrial.uniandes.edu.co/recursos/imagenes/ObjetivosEdu/letras_15.png" border="0" alt="" width="19" height="22" style="margin-left: 0px; margin-right: 10px; border: 0px;">
+							</td>
+							<td style="text-align: justify;">Acknowledge the need for engaging in lifelong learning.</td>
+						</tr>
+						<tr>
+							<td align="left" valign="top"><img src="https://industrial.uniandes.edu.co/recursos/imagenes/ObjetivosEdu/letras_17.png" border="0" alt="" width="19" height="21" style="margin-left: 0px; margin-right: 10px; border: 0px;">
+							</td>
+							<td style="text-align: justify;">Use the techniques, skills, and modern engineering tools necessary for the practice of engineering.</td>
+						</tr>
+					</tbody>
+				</table>
+
+        </div>
+
+</div>
+<div class="row">
+	<div class="container col-2" align="center" style="padding: 2%">
+		<select id="outcomesSelect" onchange="getMedidas()" class="form-control">
+
+				{%for outcome in outcomes %}
+				 	<option value="{{outcome.literal}}">outcome {{outcome.literal}}</option>
+				{%endfor%}
+		</select>
+	</div>
+</div>
+<div class="row">
+	<div class="container col-8" align="center" style="padding: 2%">
+		<div id="vis">
+
+		</div>
+	</div>
+</div>
+<script>
+
+	function getMedidas(){
+	var dataa={"outcome": $("#outcomesSelect").children("option:selected").val()};
+	$.ajax({
+  type: "POST",
+  url: '/herramienta/medidasoutcome',
+  data: dataa,
+  success: function (data) {
+	var graphdata=[];
+	 $.each(JSON.parse(data), function (i, item) {
+	console.log(item.fields)
+	graphdata.push(item.fields)
+	});
+	console.log(graphdata);
+	var vlSpec = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+		"width": 400,
+  		"height": 300,
+        data: {
+          values: graphdata
+        },
+        mark: 'bar',
+        encoding: {
+          x: {field: 'periodo', type: 'nominal'},
+          y: {
+            aggregate: 'average',
+            field: 'valor',
+            type: 'quantitative',
+            axis: {
+              title: 'promedio'
+            },
+
+          },
+			"color": {
+			  "field": "periodo",
+			  "type": "nominal"
+			}
+        }
+      };
+
+      // Embed the visualization in the container with id `vis`
+      vegaEmbed('#vis', vlSpec);
+		},
+
+	});
+	}
+	$( document ).ready(function() {
+    getMedidas();
+	});
+
+</script>
+
+{% else %}
+
+<div class="row">
+
+    <div class="container col-11" style="padding:3%">
+        <h1>Bienvenido {{request.user.first_name}}</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="container col-3">
+        <div id="accordion">
+ <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Mis cursos
+        </button>
+      </h5>
+    </div>
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+		  <ul class="list-group">
+			  {% for curso in cursos %}
+			  <li class="list-group-item"><a href="{% url 'curso' curso.id %}">{{curso.nombre}}</a></li>
+			  {% endfor %}
+		  </ul>
+
+
+
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+          <a href="{% url 'cursosprerequisito' %}">
+            <button class="btn btn-link collapsed"  aria-expanded="false" aria-controls="collapseTwo">
+                Cursos prerequisitos
+            </button>
+          </a>
+      </h5>
+    </div>
+
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+          <a href="{% url 'cursosoutcome' %}">
+            <button class="btn btn-link collapsed"  aria-expanded="false" aria-controls="collapseThree">
+              Cursos por outcome
+            </button>
+          </a>
+      </h5>
+    </div>
+  </div>
+</div>
+    </div>
+
+    <div class="container col-7">
+        {% block courses %}{% endblock %}
+    </div>
+
+</div>
+{% endif %}
+{% endblock %}
