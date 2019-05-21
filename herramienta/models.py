@@ -8,8 +8,7 @@ from django.contrib.auth.models import User
 # modelo de usuario generico que sera utilizado en la aplicacion.
 class Profesor(User):
     cursos=models.ManyToManyField('Curso')
-    def __str__(self):
-        return self.username
+
     class Meta:
         verbose_name = 'Profesor'
         verbose_name_plural = 'Profesores'
@@ -31,7 +30,7 @@ class Curso (models.Model):
 
     def __unicode__(self):
 
-        return '%s'%self.nombre
+        return '%s' % self.nombre
 
     def __str__(self):
         return '%s' % self.nombre
@@ -49,10 +48,10 @@ class OutcomeAbet (models.Model):
 
     def __unicode__(self):
 
-        return '%s'%self.literal
+        return '%s %s' % ("outcome ",self.literal)
 
     def __str__(self):
-        return '%s' % self.literal
+        return '%s %s' % ("outcome ",self.literal)
 
 class medidaOutcome(models.Model):
     tipo = models.BooleanField()
@@ -63,6 +62,13 @@ class medidaOutcome(models.Model):
     class Meta:
         verbose_name = 'Medida Outcome'
         verbose_name_plural = 'Medidas Outcomes'
+
+    def __unicode__(self):
+
+        return '%s %s %s' % (self.curso, self.outcome, self.periodo)
+
+    def __str__(self):
+        return '%s %s %s' % (self.curso, self.outcome, self.periodo)
 
 class InstrumentoMedicion (models.Model):
     tipo=models.BooleanField()
@@ -75,6 +81,18 @@ class InstrumentoMedicion (models.Model):
         verbose_name = 'Instrumento de medicion'
         verbose_name_plural = 'Instrumentos de medicion'
 
+    def __unicode__(self):
+        if self.tipo == 0:
+            return '%s %s' % (self.medidaOutcome, "mediana")
+        else:
+            return '%s %s' % (self.medidaOutcome, "media")
+
+    def __str__(self):
+        if self.tipo == 0:
+            return '%s %s' % (self.medidaOutcome, "mediana")
+        else:
+            return '%s %s' % (self.medidaOutcome, "media")
+
 
 class PlanesDeMejora (models.Model):
     descripcion=models.CharField(max_length=100)
@@ -83,4 +101,11 @@ class PlanesDeMejora (models.Model):
     class Meta:
         verbose_name = 'Plan de mejora'
         verbose_name_plural = 'Planes de mejora'
+
+    def __unicode__(self):
+
+        return '%s %s' % (self.curso, "- " +self.periodo)
+
+    def __str__(self):
+        return '%s %s' % (self.curso, "- " +self.periodo)
 

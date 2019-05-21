@@ -14,5 +14,8 @@ urlpatterns = [
     url(r'^medidasoutcome$', views.medidas_outcome, name='medidasoutcome'),
     url(r'^medidasoutcomeCurso$', views.medidas_outcome_curso, name='medidasoutcomeCurso'),
     url(r'^curso/(?P<id>\d+)$', views.curso, name='curso'),
+    url(r'^herramientas/(?P<id>\d+)$', views.herramientas, name='herramientas'),
+    url(r'^planesMejora/(?P<id>\d+)$', views.planes_mejora, name='planesMejora'),
+    url(r'^instrumento/(?P<id>\d+)$', views.herramienta, name='herramienta'),
 
 ]

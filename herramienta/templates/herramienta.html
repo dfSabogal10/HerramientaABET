@@ -1,0 +1,111 @@
+{% extends "home.html" %}
+{% load staticfiles %}
+{% block script %}
+
+{% endblock %}
+{% block courses %}
+
+
+<!-- Page Content -->
+<h2 align="left">{{herramienta}}</h2>
+<div class="row">
+	<div class="container col-12" align="left" style="padding: 2%">
+<!-- Author -->
+            <p class="lead">
+                Curso: <a href="{% url 'curso' herramienta.medidaOutcome.curso.id %}">{{herramienta.medidaOutcome.curso}}</a>
+            </p>
+            <hr>
+
+            <p class="lead">Periodo: {{ herramienta.periodo }}</p>
+
+            <hr>
+            <!-- Date/Time -->
+            <p class="lead">Outcome: {{ herramienta.medidaOutcome.outcome.literal }}</p>
+
+            <hr>
+            <p class="lead">
+                Tipo:
+                {% if herramienta.tipo == 0 %} Mediana {% else %} Media  {% endif %}
+            </p>
+            <hr>
+
+
+
+            <!-- Post Content -->
+            <h3>Descripción</h3>
+            <p class="lead"> {{ herramienta.descripcion }}</p>
+
+            <h3>Valor</h3>
+            <p class="lead">{{ herramienta.valor }}</p>
+
+
+
+
+            <hr>
+	</div>
+
+</div>
+
+
+
+
+<script>
+  function showModal() {
+    $("#myModal").modal();
+  };
+    function showModal2() {
+    $("#myModal2").modal();
+  };
+</script>
+
+<script>
+	function getMedidas(){
+	var dataa={"outcome": $("#outcomesSelect").children("option:selected").val(), "curso": "{{curso.nombre}}"};
+	$.ajax({
+  type: "POST",
+  url: '/herramienta/medidasoutcomeCurso',
+  data: dataa,
+  success: function (data) {
+	var graphdata=[];
+	 $.each(JSON.parse(data), function (i, item) {
+	console.log(item.fields)
+	graphdata.push(item.fields)
+	});
+	console.log(graphdata);
+	var vlSpec = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+		"width": 400,
+  		"height": 300,
+        data: {
+          values: graphdata
+        },
+        "mark": {
+            "type": "line",
+            "point": true
+          },
+        encoding: {
+          x: {field: 'periodo', type: 'nominal'},
+          y: {
+            field: 'valor',
+            type: 'quantitative',
+            axis: {
+              title: 'medicion'
+            },
+
+          }
+        }
+      };
+
+      // Embed the visualization in the container with id `vis`
+      vegaEmbed('#vis', vlSpec);
+		},
+
+	});
+	}
+	$( document ).ready(function() {
+    getMedidas();
+	});
+
+</script>
+
+{% endblock %}

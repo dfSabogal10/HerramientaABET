@@ -13,6 +13,7 @@ from django.contrib.auth.models import Group, User
 from herramienta import models
 from models import Profesor
 from django.urls import reverse
+from .forms import HerramientasForm, PlanesForm
 
 
 
@@ -23,8 +24,6 @@ from django.urls import reverse
 def index(request):
     if(request.user.is_authenticated):
         cursos=models.Profesor.objects.get(username=request.user.username).cursos.all()
-        for curso in cursos:
-            print(curso.profesor_set.all())
         return render(request, 'cursos.html', {'cursos':cursos})
     else:
         outcomes = models.OutcomeAbet.objects.all()
@@ -96,9 +95,10 @@ def cursos_outcome_rest(request):
 
 def curso(request, id):
     curso=models.Curso.objects.get(id=id)
+    herramientasform=HerramientasForm()
+    planesform=PlanesForm()
     cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
-    periodos = models.medidaOutcome.objects.all().values_list('periodo', flat=True).distinct()
-    return render(request, 'curso.html',{'curso':curso,'cursos':cursos,'periodos':periodos})
+    return render(request, 'curso.html',{'curso':curso,'cursos':cursos,'herramientasform':herramientasform,'planesform':planesform})
 
 #servicio rest que retorna las medidas de un outcome por curso
 @csrf_exempt
@@ -107,3 +107,30 @@ def medidas_outcome_curso(request):
     curso= request.POST.get("curso")
     medidas = models.medidaOutcome.objects.filter(outcome__literal=outcome, curso__nombre=curso)
     return HttpResponse(serializers.serialize("json", medidas))
+
+
+def herramientas(request, id):
+    if request.method=='POST':
+        form = HerramientasForm(request.POST)
+
+        if form.is_valid():
+            herramientas= models.InstrumentoMedicion.objects.filter(medidaOutcome__curso__id= id,periodo=request.POST.get("periodo"))
+            curso=models.Curso.objects.get(id=id)
+            cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
+            return render(request, 'herramientasDeMedicion.html',{'herramientas': herramientas,'cursos':cursos, 'curso':curso, 'periodo':request.POST.get("periodo")})
+
+
+def planes_mejora(request, id):
+    if request.method=='POST':
+        form = PlanesForm(request.POST)
+        if form.is_valid():
+            planes= models.PlanesDeMejora.objects.filter(curso__id= id,periodo=request.POST.get("periodo"))
+            curso = models.Curso.objects.get(id=id)
+            cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
+            return render(request, 'planesDeMejora.html',{'planes': planes,'cursos':cursos, 'curso':curso, 'periodo':request.POST.get("periodo")})
+
+
+def herramienta(request, id):
+    cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
+    herramienta = models.InstrumentoMedicion.objects.get(id=id)
+    return render(request, 'herramienta.html',{'cursos':cursos,'herramienta':herramienta})

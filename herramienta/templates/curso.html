@@ -35,6 +35,7 @@
 
 
 <!-- Herramientas Modal -->
+<form id="herramientasForm" action="{% url 'herramientas' curso.id %}" method="post">
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
   <div class="modal-dialog modal-dialog-centered"  role="document">
     <div class="modal-content">
@@ -44,22 +45,21 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <p>Escoge el periodo del que deseas ver las herramientas de medición:</p>
-          <select id="periodoSelect" class="form-control">
-            {%for periodo in periodos %}
-			 	<option value="{{periodo}}">{{periodo}}</option>
-			{%endfor%}
-		</select>
-      </div>
+            <div class="modal-body">
+            {% csrf_token %}
+            {{herramientasform}}
+          </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Continuar</button>
+        <button type="submit" class="btn btn-primary" >Continuar</button>
       </div>
+
     </div>
   </div>
 </div>
+</form>
 <!-- Planes Modal -->
+<form id="planesForm" action="{% url 'planesMejora' curso.id %}" method="post">
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="false">
   <div class="modal-dialog modal-dialog-centered"  role="document">
     <div class="modal-content">
@@ -70,20 +70,18 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Escoge el periodo del que deseas ver los planes de mejora:</p>
-          <select id="periodoSelect2" class="form-control">
-            {%for periodo in periodos %}
-			 	<option value="{{periodo}}">{{periodo}}</option>
-			{%endfor%}
-		</select>
+          {% csrf_token %}
+          {{planesform}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Continuar</button>
+        <button type="input" class="btn btn-primary" >Continuar</button>
       </div>
     </div>
   </div>
 </div>
+</form>
+
 <script>
   function showModal() {
     $("#myModal").modal();
@@ -92,6 +90,7 @@
     $("#myModal2").modal();
   };
 </script>
+
 <script>
 	function getMedidas(){
 	var dataa={"outcome": $("#outcomesSelect").children("option:selected").val(), "curso": "{{curso.nombre}}"};

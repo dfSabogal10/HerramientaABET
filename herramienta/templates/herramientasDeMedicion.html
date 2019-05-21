@@ -1,0 +1,29 @@
+{% extends "home.html" %}
+{% load staticfiles %}
+{% block script %}
+
+{% endblock %}
+{% block courses %}
+
+
+<!-- Page Content -->
+<h2>Instrumentos de medicion para {{curso.nombre}} del periodo {{periodo}}</h2>
+<div class="row">
+
+    {% for herramienta in herramientas %}
+    <div class="col-sm-5 py-2">
+    <div class="card" style="height: 235px;">
+        <div id="herramienta_{{ herramienta.id }}_nombre" class="card-header text-center"><b>{{ herramienta }}</b></div>
+                  <div class="card-body" >
+                    <h6>{{ herramienta.descripcion | slice:"125" }}... <a href="{% url 'herramienta' herramienta.id %}">ver mas</a></h6>
+                    <hr />
+                      <p class="card-text">
+                      {{herramienta.valor}} | {% if herramienta.tipo == 0 %}Mediana{% else %}Media{% endif %}
+                      </p>
+                  </div>
+              </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
