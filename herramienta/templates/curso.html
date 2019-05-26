@@ -17,7 +17,7 @@
     <div class="container col-4" align="center" style="padding: 2%">
         <p align="left">Seleccione el outcome del cual desea visualizar las mediciones:</p>
         <select id="outcomesSelect" onchange="getMedidas()" class="form-control">
-            {%for outcome in curso.outcomes.all %}
+            {%for outcome in outcomes %}
 			 	<option value="{{outcome.literal}}">outcome {{outcome.literal}}</option>
 			{%endfor%}
 		</select>

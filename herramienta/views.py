@@ -26,7 +26,7 @@ def index(request):
         cursos=models.Profesor.objects.get(username=request.user.username).cursos.all()
         return render(request, 'cursos.html', {'cursos':cursos})
     else:
-        outcomes = models.OutcomeAbet.objects.all()
+        outcomes = models.OutcomeAbet.objects.all().order_by('literal')
         return render(request, 'cursos.html', {'outcomes':outcomes })
 
 #servicio rest para autenticar un usuario
@@ -68,7 +68,6 @@ def cursos_prerequisito(request):
 def cursos_prerequisito_rest(request):
     curso = request.POST.get("curso")
     cursos = models.Profesor.objects.get(username=request.user.username).cursos.all().get(nombre=curso).prerequisitos.all()
-    print(cursos)
     return HttpResponse(serializers.serialize("json", cursos))
 
 #servicio rest que retorna las medidas de un outcome
@@ -81,24 +80,24 @@ def medidas_outcome(request):
 
 def cursos_outcome(request):
     cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
-    outcomes = models.OutcomeAbet.objects.all()
+    outcomes = models.OutcomeAbet.objects.all().order_by('literal')
     return render(request, 'cursosOutcome.html',{'outcomes':outcomes,'cursos':cursos })
 
 #servicio rest que retorna los cursos por outcome
 @csrf_exempt
 def cursos_outcome_rest(request):
     outcome = request.POST.get("outcome")
-    cursos = models.Profesor.objects.get(username=request.user.username).cursos.all().filter(outcomes__literal=outcome)
-    print(outcome, cursos)
+    cursos = models.Profesor.objects.get(username=request.user.username).cursos.all().filter(medidas__outcome__literal=outcome).distinct()
     return HttpResponse(serializers.serialize("json", cursos))
 
 
 def curso(request, id):
     curso=models.Curso.objects.get(id=id)
+    outcomes= models.OutcomeAbet.objects.filter(medidas__curso__id=id).distinct().order_by('literal')
     herramientasform=HerramientasForm()
     planesform=PlanesForm()
     cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
-    return render(request, 'curso.html',{'curso':curso,'cursos':cursos,'herramientasform':herramientasform,'planesform':planesform})
+    return render(request, 'curso.html',{'curso':curso,'cursos':cursos, 'outcomes':outcomes, 'herramientasform':herramientasform,'planesform':planesform})
 
 #servicio rest que retorna las medidas de un outcome por curso
 @csrf_exempt
