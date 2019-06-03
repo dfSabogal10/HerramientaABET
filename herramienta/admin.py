@@ -5,13 +5,12 @@ from django.contrib import admin
 from django import forms
 
 # Register your models here.
-from .models import Curso, OutcomeAbet, PlanesDeMejora, InstrumentoMedicion, Profesor, medidaOutcome
-
+from .models import Curso, OutcomeAbet, PlanesDeMejora, InstrumentoMedicion, medidaOutcome #Profesor
 admin.site.register(Curso)
 admin.site.register(OutcomeAbet)
 admin.site.register(InstrumentoMedicion)
 admin.site.register(PlanesDeMejora)
-admin.site.register(Profesor)
+# admin.site.register(Profesor)
 
 #
 # class MedidaOutcomeForm(forms.ModelForm):
