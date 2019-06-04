@@ -41,7 +41,7 @@ class Curso (models.Model):
 
 class OutcomeAbet (models.Model):
     literal= models.CharField(max_length=100)
-    descripcion = models.CharField(max_length=100)
+    descripcion = models.CharField(max_length=500)
     class Meta:
         verbose_name = 'Outcome Abet'
         verbose_name_plural = 'Outcomes Abet'
@@ -80,7 +80,7 @@ class medidaOutcome(models.Model):
 
 class InstrumentoMedicion (models.Model):
     tipo=models.BooleanField(choices=TIPO_CHOICES, default=1)
-    descripcion = models.CharField(max_length=100)
+    descripcion = models.CharField(max_length=1000)
     valor= models.DecimalField(decimal_places=2,max_digits=3)
     periodo = models.CharField(max_length=100)
     medidaOutcome= models.ForeignKey(medidaOutcome, on_delete=models.CASCADE)
