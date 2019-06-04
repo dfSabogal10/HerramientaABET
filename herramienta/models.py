@@ -58,7 +58,7 @@ TIPO_CHOICES = (
     (0, "Mediana"),
 )
 class medidaOutcome(models.Model):
-    tipo = models.BooleanField(choices=TIPO_CHOICES, default=1)
+    tipo = models.BooleanField(choices=TIPO_CHOICES)
     periodo = models.CharField(max_length=100)
     valor=models.DecimalField(decimal_places=2,max_digits=3)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE, related_name='medidas')
