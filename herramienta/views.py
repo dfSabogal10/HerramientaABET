@@ -104,7 +104,7 @@ def curso(request, id):
 def medidas_outcome_curso(request):
     outcome = request.POST.get("outcome")
     curso= request.POST.get("curso")
-    medidas = models.medidaOutcome.objects.filter(outcome__literal=outcome, curso__nombre=curso)
+    medidas = models.medidaOutcome.objects.filter(outcome__literal=outcome, curso__nombre=curso, tipo=0)
     return HttpResponse(serializers.serialize("json", medidas))
 
 
