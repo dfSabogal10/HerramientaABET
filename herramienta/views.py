@@ -74,7 +74,7 @@ def cursos_prerequisito_rest(request):
 @csrf_exempt
 def medidas_outcome(request):
     outcome = request.POST.get("outcome")
-    medidas = models.medidaOutcome.objects.filter(outcome__literal=outcome)
+    medidas = models.medidaOutcome.objects.filter(outcome__literal=outcome, tipo=0)
     return HttpResponse(serializers.serialize("json", medidas))
 
 
@@ -104,7 +104,7 @@ def curso(request, id):
 def medidas_outcome_curso(request):
     outcome = request.POST.get("outcome")
     curso= request.POST.get("curso")
-    medidas = models.medidaOutcome.objects.filter(outcome__literal=outcome, curso__nombre=curso, tipo=0)
+    medidas = models.medidaOutcome.objects.filter(outcome__literal=outcome, curso__nombre=curso)
     return HttpResponse(serializers.serialize("json", medidas))
 
 
