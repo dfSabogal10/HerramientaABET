@@ -87,7 +87,7 @@ def cursos_outcome(request):
 @csrf_exempt
 def cursos_outcome_rest(request):
     outcome = request.POST.get("outcome")
-    cursos = models.Profesor.objects.get(username=request.user.username).cursos.all().filter(medidas__outcome__literal=outcome).distinct()
+    cursos = models.Curso.objects.filter(medidas__outcome__literal=outcome).distinct()
     return HttpResponse(serializers.serialize("json", cursos))
 
 
@@ -133,3 +133,7 @@ def herramienta(request, id):
     cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
     herramienta = models.InstrumentoMedicion.objects.get(id=id)
     return render(request, 'herramienta.html',{'cursos':cursos,'herramienta':herramienta})
+
+
+def herramienta_analisis(request):
+    return render(request, 'herramientaAnalisis.html',{})

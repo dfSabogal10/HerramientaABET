@@ -27,6 +27,7 @@ class Curso (models.Model):
     nombre = models.CharField(max_length=100)
     area = models.CharField(max_length=100)
     prerequisitos= models.ManyToManyField('Curso',blank=True)
+    semestre= models.IntegerField()
 
     def __unicode__(self):
 
@@ -77,6 +78,19 @@ class medidaOutcome(models.Model):
         if self.valor < 0 or self.valor>5:
             raise ValidationError(_('El valor tiene que estar entre 0 y 5'))
 
+
+class AnalisisIntercurso(models.Model):
+    calificacion= models.CharField(max_length=100)
+    descripcion= models.CharField(max_length=1000)
+    periodo= models.CharField(max_length=100)
+    curso1 = models.ForeignKey(Curso, on_delete=models.CASCADE, related_name='analisis1')
+    curso2 = models.ForeignKey(Curso, on_delete=models.CASCADE, related_name='analisis2')
+    outcome = models.ForeignKey(OutcomeAbet, on_delete=models.CASCADE, related_name='analisis')
+    def __unicode__(self):
+        return '%s %s %s' % (self.curso1, self.curso2, self.outcome)
+
+    def __str__(self):
+        return '%s %s %s' % (self.curso1, self.curso2, self.outcome)
 
 class InstrumentoMedicion (models.Model):
     tipo=models.BooleanField(choices=TIPO_CHOICES, default=1)

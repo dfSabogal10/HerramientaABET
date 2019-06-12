@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'^herramientas/(?P<id>\d+)$', views.herramientas, name='herramientas'),
     url(r'^planesMejora/(?P<id>\d+)$', views.planes_mejora, name='planesMejora'),
     url(r'^instrumento/(?P<id>\d+)$', views.herramienta, name='herramienta'),
+    url(r'^herramientaAnalisis$', views.herramienta_analisis, name='herramientaAnalisis'),
 
 ]
