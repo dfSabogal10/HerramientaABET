@@ -136,4 +136,5 @@ def herramienta(request, id):
 
 
 def herramienta_analisis(request):
-    return render(request, 'herramientaAnalisis.html',{})
+    outcomes = models.OutcomeAbet.objects.all().order_by('literal')
+    return render(request, 'herramientaAnalisis.html',{'outcomes':outcomes})

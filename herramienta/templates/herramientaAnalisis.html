@@ -9,8 +9,158 @@
 <!-- Page Content -->
 <h2>Herramienta Analisis Intercurso</h2>
 <div class="row">
+    <div class="container col-4">
+    <select id="outcomesSelect" onchange="getCursos()" class="form-control">
+        {%for outcome in outcomes %}
+         <option value="{{outcome.literal}}">outcome {{outcome.literal}}</option>
+        {%endfor%}
+      </select>
+    </div>
+</div>
+<div class="row">
+    <canvas
+        width= '700'
+        height= '300'
+        id="network"
+    ></canvas>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+          <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+          <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+      <script type="text/javascript">
+          var graph = {
+                    nodes:[
 
+                    ],
+                    links:[
 
+                    ]
+          };
+          $( document ).ready(function() {
+                getCursos();
+            });
+          function getCursos() {
+            var dataa={"outcome": $("#outcomesSelect").children("option:selected").val()};
+            $.ajax({
+              type: "POST",
+              url: '/herramienta/cursosoutcomerest',
+              data: dataa,
+              success: function (data) {
+                    console.log(data)
+                    selected=[]
+                    graph.nodes=[];
+                    graph.links=[];
+                    $.each(JSON.parse(data), function (i, item) {
+                        console.log(item);
+                        graph.nodes.push(item.fields);
+                    })
+                    simulation = d3.forceSimulation()
+                        .force("x", d3.forceX().x(function(d) {
+                            return xScale(d.semestre);
+                          }))
+                          .force('y', d3.forceY().y(function(d) {
+                            return height/2;
+                          }))
+                        .force("collide", d3.forceCollide(r+1))
+                        .force("charge", d3.forceManyBody()
+                          .strength(-20))
+                        .force("link", d3.forceLink()
+                          .id(function (d) { return d['name']; }));
+                        linksnuevos=graph.links;
+                        nodes=graph.nodes;
+                        simulation.nodes(nodes);
+                        simulation.force("link")
+                          .links(linksnuevos)
+                          .strength(0);
+
+                        simulation.on("tick", update);
+                        canvas
+                            .call(d3.drag()
+                                .container(canvas.node())
+                                .subject(dragsubject)
+                                .on("start", dragstarted)
+                                .on("drag", dragged)
+                                .on("end", dragended));
+                },
+
+            });
+
+            };
+
+              const nodecolor='';
+              const linkidtype='NUMBER';
+              const linkid='id';
+              var linksnuevos,nodes;
+              var xScale = d3.scaleLinear().domain([0, 8]).range([30,750]);
+              var canvas = d3.select("#network"),
+              width = canvas.attr("width"),
+              height = canvas.attr("height"),
+              ctx = canvas.node().getContext("2d"),
+              r = 5,
+                selected=[],
+              color = d3.scaleOrdinal(d3.schemeCategory20);
+
+                function update() {
+                  ctx.clearRect(0, 0, width, height);
+
+                  ctx.font = "16px Arial";
+                  ctx.fillText("Semestre", 0, 50);
+                  for (var i = 1; i <= 8; i++) {
+                       ctx.fillText(i, xScale(i),50 );
+                    }
+                  ctx.beginPath();
+                  ctx.globalAlpha = 0.5;
+                  ctx.strokeStyle = "#aaa";
+                  linksnuevos.forEach(drawLink);
+                  ctx.stroke();
+                  ctx.globalAlpha = 1.0;
+                  nodes.forEach(drawNode);
+                }
+                function dragsubject() {
+                  return simulation.find(d3.event.x, d3.event.y);
+                }
+              function dragstarted() {
+                if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+                d3.event.subject.fx = d3.event.subject.x;
+                d3.event.subject.fy = d3.event.subject.y;
+                if(selected.length==0 || (selected.length==1 && selected[0].nombre != d3.event.subject.nombre)){
+                    selected.push(d3.event.subject);
+                }
+                else if(selected.length==2  && selected[0].nombre != d3.event.subject.nombre && selected[1].nombre != d3.event.subject.nombre)
+                {
+                    selected.shift();
+                    selected.push(d3.event.subject);
+                }
+                console.log(selected);
+              }
+              function dragged() {
+                d3.event.subject.fx = d3.event.x;
+                d3.event.subject.fy = d3.event.y;
+              }
+              function dragended() {
+                if (!d3.event.active) simulation.alphaTarget(0);
+                d3.event.subject.fx = null;
+                d3.event.subject.fy = null;
+              }
+              function drawNode(d) {
+                ctx.beginPath();
+                ctx.fillStyle = color(d[nodecolor]);
+                ctx.moveTo(d.x, d.y);
+                if(selected.includes(d))
+                {
+                    ctx.fillStyle = '#000000';
+                    ctx.arc(d.x, d.y, r+2, 0, Math.PI*2)
+                }
+                else{
+                    ctx.arc(d.x, d.y, r, 0, Math.PI*2);
+                }
+                ctx.fill();
+              }
+              function drawLink(l) {
+                ctx.moveTo(l.source.x, l.source.y);
+                ctx.lineTo(l.target.x, l.target.y);
+              }
+
+          </script>
 </div>
 
 {% endblock %}

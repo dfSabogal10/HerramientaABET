@@ -25,6 +25,7 @@ class Profesor(User):
 #modelo de un curso
 class Curso (models.Model):
     nombre = models.CharField(max_length=100)
+    nombreCorto = models.CharField(max_length=100)
     area = models.CharField(max_length=100)
     prerequisitos= models.ManyToManyField('Curso',blank=True)
     semestre= models.IntegerField()
