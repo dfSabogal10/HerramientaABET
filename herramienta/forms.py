@@ -14,3 +14,4 @@ class PlanesForm(forms.Form):
     for i,p in enumerate(periodosPlanes):
         CHOICES.append((p,p))
     periodo = forms.ChoiceField(label='Escoge el periodo del que deseas ver los planes de medicion:',widget=forms.Select(attrs={'class' : 'form-control'}),choices=CHOICES)
+

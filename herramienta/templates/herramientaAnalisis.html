@@ -153,7 +153,20 @@
                 else{
                     ctx.arc(d.x, d.y, r, 0, Math.PI*2);
                 }
+                ctx.fillText(d.nombreCorto,d.x+r,d.y+r);
                 ctx.fill();
+                if(selected.length==2)
+                {
+                    document.getElementById("buttonEvaluar").disabled = false;
+                    document.getElementById("buttonVer").disabled = false;
+                    var params="/herramienta/analisisNuevo/"+selected[0].index+"/"+selected[1].index;
+                    document.getElementById("linkEvaluar").href=params
+
+                }
+                else{
+                    document.getElementById("buttonEvaluar").disabled = true;
+                    document.getElementById("buttonVer").disabled = true;
+                }
               }
               function drawLink(l) {
                 ctx.moveTo(l.source.x, l.source.y);
@@ -161,6 +174,12 @@
               }
 
           </script>
+</div>
+<div class="row">
+    <div class="container col-8">
+        <a id="linkEvaluar" href=""><button id="buttonEvaluar"  type="button" class="btn btn-primary"  disabled>Evaluar Relacion</button></a>
+        <button id="buttonVer" type="button" class="btn btn-primary" onclick="showModal()" disabled>Ver Evaluacion</button>
+    </div>
 </div>
 
 {% endblock %}
