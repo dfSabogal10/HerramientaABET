@@ -16,8 +16,8 @@ class PlanesForm(forms.Form):
     periodo = forms.ChoiceField(label='Escoge el periodo del que deseas ver los planes de medicion:',widget=forms.Select(attrs={'class' : 'form-control'}),choices=CHOICES)
 
 class AnalisisForm(forms.Form):
-    CHOICES = [('bueno', 'bueno'),
+    CHOICES = [('bueno', 'buena'),
                ('regular', 'regular'),
-               ('malo', 'malo')]
+               ('malo', 'mala')]
     calificacion=forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect, label='La relacion entre los instrumentos de medicion de los cursos es:')
     descripcion = forms.CharField(widget=forms.Textarea(attrs={"rows": 10, "cols": 20,'class' : 'form-control'}), label='Descripcion del analisis')
