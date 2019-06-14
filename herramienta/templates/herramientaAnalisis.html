@@ -189,14 +189,25 @@
                 else{
                     ctx.arc(d.x, d.y, r, 0, Math.PI*2);
                 }
-                ctx.fillText(d.nombreCorto,0    ,height*1/3+d.index*20);
+                ctx.fillText(d.nombreCorto,0,height*1/3+d.index*20);
                 ctx.fill();
                 if(selected.length==2)
                 {
-                    $("#buttonEvaluar").attr("disabled",false);
-                    $("#buttonVer").attr("disabled",false);
-                    var params="/herramienta/analisisNuevo/"+selected[0].id+"/"+selected[1].id+"/"+$("#outcomesSelect").children("option:selected").val()+"/"+$("#periodoSelect").children("option:selected").val();
-                    $("#linkEvaluar").attr("href",params);
+                    var found = linksnuevos.find(function(element) {
+                      return (element.source == selected[0] && element.target == selected[1]) || (element.source == selected[1] && element.target == selected[0]);
+                    });
+                    if(found)
+                    {
+                        $("#buttonVer").attr("disabled",false);
+                        var params="/herramienta/analisisCambiar/"+selected[0].id+"/"+selected[1].id+"/"+$("#outcomesSelect").children("option:selected").val()+"/"+$("#periodoSelect").children("option:selected").val();
+                        $("#linkVer").attr("href",params);
+                    }
+                    else
+                    {
+                        $("#buttonEvaluar").attr("disabled",false);
+                        var params="/herramienta/analisisNuevo/"+selected[0].id+"/"+selected[1].id+"/"+$("#outcomesSelect").children("option:selected").val()+"/"+$("#periodoSelect").children("option:selected").val();
+                        $("#linkEvaluar").attr("href",params);
+                    }
 
                 }
                 else{
@@ -225,7 +236,7 @@
 <div class="row">
     <div class="container col-8">
         <a id="linkEvaluar" href=""><button id="buttonEvaluar"  type="button" class="btn btn-primary"  disabled>Evaluar Relacion</button></a>
-        <button id="buttonVer" type="button" class="btn btn-primary" onclick="showModal()" disabled>Ver Evaluacion</button>
+        <a id="linkVer" href=""><button id="buttonVer" type="button" class="btn btn-primary" disabled>Ver Evaluacion</button></a>
     </div>
 </div>
 

@@ -174,3 +174,35 @@ def analisis_cursos_rest(request):
     print(outcome,periodo)
     analisis = models.AnalisisIntercurso.objects.filter(outcome__literal=outcome,periodo=periodo)
     return HttpResponse(serializers.serialize("json", analisis))
+
+
+def analisis_cambiar(request, id1, id2,outcome,periodo):
+    cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
+    curso1 = models.Curso.objects.get(id=id1);
+    curso2 = models.Curso.objects.get(id=id2);
+    instrumentoCurso1 = models.InstrumentoMedicion.objects.filter(medidaOutcome__curso__id=id1,
+                                                                  medidaOutcome__outcome__literal=outcome,
+                                                                  periodo=periodo)
+    instrumentoCurso2 = models.InstrumentoMedicion.objects.filter(medidaOutcome__curso__id=id2,
+                                                                  medidaOutcome__outcome__literal=outcome,
+                                                                  periodo=periodo)
+    instrumentos = map(None, instrumentoCurso1, instrumentoCurso2)
+    analisis= models.AnalisisIntercurso.objects.get(outcome__literal=outcome, periodo=periodo, curso1__id=id1,curso2__id=id2)
+    outcome = models.OutcomeAbet.objects.get(literal=outcome)
+    analisisForm = AnalisisForm({'calificacion':analisis.calificacion,'descripcion':analisis.descripcion})
+    return render(request, 'analisisCambiar.html',
+                  {'cursos': cursos, 'curso1': curso1, 'curso2': curso2, 'instrumentos': instrumentos,
+                   'periodo': periodo, 'outcome': outcome, 'analisisForm': analisisForm})
+
+
+def cambiar_analisis(request, id1, id2,outcome,periodo):
+    if request.method=='POST':
+        form = AnalisisForm(request.POST)
+        if form.is_valid():
+            outcomee=models.OutcomeAbet.objects.get(literal=outcome)
+            models.AnalisisIntercurso.objects.filter(periodo=periodo,
+                                                  curso1_id=id1,
+                                                  curso2_id=id2,
+                                                  outcome_id=outcomee.id).update(calificacion=request.POST.get("calificacion"),
+                                                                                 descripcion=request.POST.get("descripcion"))
+            return redirect('herramientaAnalisis')

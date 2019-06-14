@@ -1,0 +1,61 @@
+{% extends "home.html" %}
+{% load staticfiles %}
+{% block script %}
+
+{% endblock %}
+{% block courses %}
+
+
+<!-- Page Content -->
+<h2>Analisis intercurso basado en outcome {{outcome.literal}} para el periodo {{periodo}} </h2>
+<div class="row">
+<table class="table" >
+      <thead>
+        <tr>
+          <th scope="col">Curso</th>
+          <th scope="col">{{curso1.nombre}}</th>
+          <th scope="col">{{curso2.nombre}}</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <th>Descripcion outcome</th>
+              <td colspan="2" align="center">{{outcome.descripcion}}</td>
+          </tr>
+        <tr>
+          <th scope="row">Correlación mediciones</th>
+          <td colspan="2" align="center"></td>
+        </tr>
+
+          {% for instrumentoCurso1,instrumentoCurso2 in instrumentos %}
+            <tr>
+                <th>Instrumento de medida {{forloop.counter}}</th>
+                <td>{{instrumentoCurso1.descripcion}}</td>
+                <td>{{instrumentoCurso2.descripcion}}</td>
+            </tr>
+          {% endfor %}
+
+
+      </tbody>
+
+
+    </table>
+</div>
+
+<form id="analisisForm" action="{% url 'cambiarAnalisis' request.resolver_match.kwargs.id1 request.resolver_match.kwargs.id2 request.resolver_match.kwargs.outcome request.resolver_match.kwargs.periodo %}" method="post">
+      <div class="row">
+        <h5 class="modal-title" id="exampleModalLabel1" style="padding:3%">Evaluación</h5>
+      </div>
+          {% csrf_token %}
+          {{analisisForm}}
+      <div class="row">
+        <div class="container col-8" align="center" style="padding:3%">
+            <button type="button" class="btn btn-secondary" >Volver</button>
+            <button type="input" class="btn btn-primary" >Cambiar</button>
+        </div>
+      </div>
+
+</form>
+
+
+{% endblock %}
