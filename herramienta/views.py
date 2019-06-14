@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import  login, get_user_model, logout
@@ -13,7 +13,7 @@ from django.contrib.auth.models import Group, User
 from herramienta import models
 from models import Profesor
 from django.urls import reverse
-from .forms import HerramientasForm, PlanesForm
+from .forms import HerramientasForm, PlanesForm, AnalisisForm
 
 
 
@@ -136,9 +136,10 @@ def herramienta(request, id):
 
 
 def herramienta_analisis(request):
+    cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
     outcomes = models.OutcomeAbet.objects.all().order_by('literal')
     periodos= models.InstrumentoMedicion.objects.all().values_list('periodo', flat=True).distinct().order_by('periodo').reverse()
-    return render(request, 'herramientaAnalisis.html',{'outcomes':outcomes, 'periodos':periodos})
+    return render(request, 'herramientaAnalisis.html',{'outcomes':outcomes, 'periodos':periodos,'cursos':cursos})
 
 
 def analisis_nuevo(request, id1, id2,outcome,periodo):
@@ -149,4 +150,20 @@ def analisis_nuevo(request, id1, id2,outcome,periodo):
     instrumentoCurso2 = models.InstrumentoMedicion.objects.filter(medidaOutcome__curso__id=id2, medidaOutcome__outcome__literal=outcome, periodo=periodo)
     instrumentos=map(None, instrumentoCurso1,instrumentoCurso2)
     outcome= models.OutcomeAbet.objects.get(literal=outcome)
-    return render(request, 'analisisNuevo.html',{'cursos':cursos,'curso1':curso1, 'curso2':curso2, 'instrumentos':instrumentos,'periodo': periodo, 'outcome':outcome})
+    analisisForm = AnalisisForm()
+    return render(request, 'analisisNuevo.html',{'cursos':cursos,'curso1':curso1, 'curso2':curso2, 'instrumentos':instrumentos,'periodo': periodo, 'outcome':outcome, 'analisisForm':analisisForm})
+
+
+def agregar_analisis(request, id1, id2,outcome,periodo):
+    if request.method=='POST':
+        form = AnalisisForm(request.POST)
+        if form.is_valid():
+            outcomee=models.OutcomeAbet.objects.get(literal=outcome)
+            models.AnalisisIntercurso.objects.create(calificacion=request.POST.get("calificacion"),
+                                                     descripcion=request.POST.get("descripcion"),
+                                                     periodo=periodo,
+                                                     curso1_id=id1,
+                                                     curso2_id=id2,
+                                                     outcome_id=outcomee.id)
+            return redirect('herramientaAnalisis')
+
