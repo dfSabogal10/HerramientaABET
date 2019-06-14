@@ -9,13 +9,27 @@
 <!-- Page Content -->
 <h2>Herramienta Analisis Intercurso</h2>
 <div class="row">
-    <div class="container col-4">
+    <div class="container col-2" align="left">
+        Outcome:
+    </div>
+    <div class="container col-4" align="left">
     <select id="outcomesSelect" onchange="getCursos()" class="form-control">
         {%for outcome in outcomes %}
          <option value="{{outcome.literal}}">outcome {{outcome.literal}}</option>
         {%endfor%}
       </select>
     </div>
+    <div class="container col-2" align="left">
+        Periodo:
+    </div>
+    <div class="container col-4" align="left">
+        <select id="periodoSelect" onchange="getCursos()" class="form-control">
+        {%for periodo in periodos %}
+         <option value="{{periodo}}">{{periodo}}</option>
+        {%endfor%}
+      </select>
+    </div>
+
 </div>
 <div class="row">
     <canvas
@@ -45,11 +59,11 @@
               url: '/herramienta/cursosoutcomerest',
               data: dataa,
               success: function (data) {
-                    console.log(data)
                     selected=[]
                     graph.nodes=[];
                     graph.links=[];
                     $.each(JSON.parse(data), function (i, item) {
+                        item.fields["id"]=item.pk
                         console.log(item);
                         graph.nodes.push(item.fields);
                     })
@@ -157,15 +171,17 @@
                 ctx.fill();
                 if(selected.length==2)
                 {
-                    document.getElementById("buttonEvaluar").disabled = false;
-                    document.getElementById("buttonVer").disabled = false;
-                    var params="/herramienta/analisisNuevo/"+selected[0].index+"/"+selected[1].index;
-                    document.getElementById("linkEvaluar").href=params
+                    $("#buttonEvaluar").attr("disabled",false);
+                    $("#buttonVer").attr("disabled",false);
+                    console.log(selected[0])
+                    console.log(selected[1]);
+                    var params="/herramienta/analisisNuevo/"+selected[0].id+"/"+selected[1].id+"/"+$("#outcomesSelect").children("option:selected").val()+"/"+$("#periodoSelect").children("option:selected").val();
+                    $("#linkEvaluar").attr("href",params);
 
                 }
                 else{
-                    document.getElementById("buttonEvaluar").disabled = true;
-                    document.getElementById("buttonVer").disabled = true;
+                    $("#buttonEvaluar").attr("disabled",true);
+                    $("#buttonVer").attr("disabled",true);
                 }
               }
               function drawLink(l) {

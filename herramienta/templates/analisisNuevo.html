@@ -7,9 +7,39 @@
 
 
 <!-- Page Content -->
-<h2>Analisis</h2>
+<h2>Analisis intercurso basado en outcome {{outcome.literal}} para el periodo {{periodo}}</h2>
 <div class="row">
+<table class="table" >
+      <thead>
+        <tr>
+          <th scope="col">Curso</th>
+          <th scope="col">{{curso1.nombre}}</th>
+          <th scope="col">{{curso2.nombre}}</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <th>Descripcion outcome</th>
+              <td colspan="2" align="center">{{outcome.descripcion}}</td>
+          </tr>
+        <tr>
+          <th scope="row">Correlación mediciones</th>
+          <td colspan="2" align="center"></td>
+        </tr>
 
+          {% for instrumentoCurso1,instrumentoCurso2 in instrumentos %}
+            <tr>
+                <th>Instrumento de medida {{forloop.counter}}</th>
+                <td>{{instrumentoCurso1.descripcion}}</td>
+                <td>{{instrumentoCurso3.descripcion}}</td>
+            </tr>
+          {% endfor %}
+
+
+      </tbody>
+
+
+    </table>
 </div>
 
 {% endblock %}

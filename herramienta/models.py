@@ -98,7 +98,7 @@ class InstrumentoMedicion (models.Model):
     descripcion = models.CharField(max_length=1000)
     valor= models.DecimalField(decimal_places=2,max_digits=3)
     periodo = models.CharField(max_length=100)
-    medidaOutcome= models.ForeignKey(medidaOutcome, on_delete=models.CASCADE)
+    medidaOutcome= models.ForeignKey(medidaOutcome, on_delete=models.CASCADE, related_name='instrumentos')
 
     class Meta:
         verbose_name = 'Instrumento de medicion'

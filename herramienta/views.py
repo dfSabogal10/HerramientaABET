@@ -137,8 +137,16 @@ def herramienta(request, id):
 
 def herramienta_analisis(request):
     outcomes = models.OutcomeAbet.objects.all().order_by('literal')
-    return render(request, 'herramientaAnalisis.html',{'outcomes':outcomes})
+    periodos= models.InstrumentoMedicion.objects.all().values_list('periodo', flat=True).distinct().order_by('periodo').reverse()
+    return render(request, 'herramientaAnalisis.html',{'outcomes':outcomes, 'periodos':periodos})
 
 
-def analisis_nuevo(request, id1, id2):
-    return render(request, 'analisisNuevo.html',{})
+def analisis_nuevo(request, id1, id2,outcome,periodo):
+    cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
+    curso1=models.Curso.objects.get(id=id1);
+    curso2=models.Curso.objects.get(id=id2);
+    instrumentoCurso1 = models.InstrumentoMedicion.objects.filter(medidaOutcome__curso__id=id1, medidaOutcome__outcome__literal=outcome, periodo=periodo)
+    instrumentoCurso2 = models.InstrumentoMedicion.objects.filter(medidaOutcome__curso__id=id2, medidaOutcome__outcome__literal=outcome, periodo=periodo)
+    instrumentos=zip(instrumentoCurso1,instrumentoCurso2)
+    outcome= models.OutcomeAbet.objects.get(literal=outcome)
+    return render(request, 'analisisNuevo.html',{'cursos':cursos,'curso1':curso1, 'curso2':curso2, 'instrumentos':instrumentos,'periodo': periodo, 'outcome':outcome})
