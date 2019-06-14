@@ -44,6 +44,7 @@
 <div class="row">
     <div class="container col-4">
     <button id="buttonEvaluar" type="button" class="btn btn-primary" onclick="showModal()" >Evaluar</button>
+    <a href="{% url 'herramientaAnalisis' %}"><button  type="button" class="btn btn-secondary" >Volver</button></a>
     </div>
 </div>
 <form id="analisisForm" action="{% url 'agregarAnalisis' request.resolver_match.kwargs.id1 request.resolver_match.kwargs.id2 request.resolver_match.kwargs.outcome request.resolver_match.kwargs.periodo %}" method="post">
