@@ -199,11 +199,13 @@
                     if(found)
                     {
                         $("#buttonVer").attr("disabled",false);
+                        $("#buttonEvaluar").attr("disabled",true);
                         var params="/herramienta/analisisCambiar/"+selected[0].id+"/"+selected[1].id+"/"+$("#outcomesSelect").children("option:selected").val()+"/"+$("#periodoSelect").children("option:selected").val();
                         $("#linkVer").attr("href",params);
                     }
                     else
                     {
+                        $("#buttonVer").attr("disabled",true)
                         $("#buttonEvaluar").attr("disabled",false);
                         var params="/herramienta/analisisNuevo/"+selected[0].id+"/"+selected[1].id+"/"+$("#outcomesSelect").children("option:selected").val()+"/"+$("#periodoSelect").children("option:selected").val();
                         $("#linkEvaluar").attr("href",params);
