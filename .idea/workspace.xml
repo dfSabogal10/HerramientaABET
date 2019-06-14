@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62422dae-ad1a-493e-8bd2-7051a3829798" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/herramienta/templates/analisisNuevo.html" afterPath="$PROJECT_DIR$/herramienta/templates/analisisNuevo.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/herramienta/views.py" afterPath="$PROJECT_DIR$/herramienta/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,11 +20,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/herramienta/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="147" column="21" lean-forward="false" selection-start-line="147" selection-start-column="4" selection-end-line="147" selection-end-column="21" />
+            <state relative-caret-position="230">
+              <caret line="149" column="27" lean-forward="false" selection-start-line="149" selection-start-column="27" selection-end-line="149" selection-end-column="27" />
               <folding>
                 <element signature="e#23#62#0" expanded="true" />
               </folding>
@@ -43,10 +42,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="analisisNuevo.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="analisisNuevo.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/herramienta/templates/analisisNuevo.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
+            <state relative-caret-position="270">
               <caret line="33" column="39" lean-forward="false" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
               <folding />
             </state>
@@ -178,8 +177,8 @@
         <option value="$PROJECT_DIR$/herramienta/models.py" />
         <option value="$PROJECT_DIR$/herramienta/templates/herramientaAnalisis.html" />
         <option value="$PROJECT_DIR$/herramienta/urls.py" />
-        <option value="$PROJECT_DIR$/herramienta/views.py" />
         <option value="$PROJECT_DIR$/herramienta/templates/analisisNuevo.html" />
+        <option value="$PROJECT_DIR$/herramienta/views.py" />
       </list>
     </option>
   </component>
@@ -893,21 +892,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/herramienta/views.py">
+    <entry file="file://$PROJECT_DIR$/herramienta/templates/analisisNuevo.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="147" column="21" lean-forward="false" selection-start-line="147" selection-start-column="4" selection-end-line="147" selection-end-column="21" />
-          <folding>
-            <element signature="e#23#62#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="270">
+          <caret line="33" column="39" lean-forward="false" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/herramienta/templates/analisisNuevo.html">
+    <entry file="file://$PROJECT_DIR$/herramienta/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="33" column="39" lean-forward="false" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
-          <folding />
+        <state relative-caret-position="230">
+          <caret line="149" column="27" lean-forward="false" selection-start-line="149" selection-start-column="27" selection-end-line="149" selection-end-column="27" />
+          <folding>
+            <element signature="e#23#62#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

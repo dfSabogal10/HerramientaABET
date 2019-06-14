@@ -147,6 +147,6 @@ def analisis_nuevo(request, id1, id2,outcome,periodo):
     curso2=models.Curso.objects.get(id=id2);
     instrumentoCurso1 = models.InstrumentoMedicion.objects.filter(medidaOutcome__curso__id=id1, medidaOutcome__outcome__literal=outcome, periodo=periodo)
     instrumentoCurso2 = models.InstrumentoMedicion.objects.filter(medidaOutcome__curso__id=id2, medidaOutcome__outcome__literal=outcome, periodo=periodo)
-    instrumentos=zip(instrumentoCurso1,instrumentoCurso2)
+    instrumentos=map(None, instrumentoCurso1,instrumentoCurso2)
     outcome= models.OutcomeAbet.objects.get(literal=outcome)
     return render(request, 'analisisNuevo.html',{'cursos':cursos,'curso1':curso1, 'curso2':curso2, 'instrumentos':instrumentos,'periodo': periodo, 'outcome':outcome})
