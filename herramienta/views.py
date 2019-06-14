@@ -167,3 +167,10 @@ def agregar_analisis(request, id1, id2,outcome,periodo):
                                                      outcome_id=outcomee.id)
             return redirect('herramientaAnalisis')
 
+@csrf_exempt
+def analisis_cursos_rest(request):
+    outcome = request.POST.get("outcome")
+    periodo = request.POST.get("periodo")
+    print(outcome,periodo)
+    analisis = models.AnalisisIntercurso.objects.filter(outcome__literal=outcome,periodo=periodo)
+    return HttpResponse(serializers.serialize("json", analisis))

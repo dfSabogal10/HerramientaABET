@@ -54,20 +54,29 @@
             });
           function getCursos() {
             var dataa={"outcome": $("#outcomesSelect").children("option:selected").val()};
+            var data2={"periodo": $("#periodoSelect").children("option:selected").val(), "outcome": $("#outcomesSelect").children("option:selected").val()};
             $.ajax({
               type: "POST",
               url: '/herramienta/cursosoutcomerest',
               data: dataa,
               success: function (data) {
+
                     selected=[]
                     graph.nodes=[];
                     graph.links=[];
                     $.each(JSON.parse(data), function (i, item) {
                         item.fields["id"]=item.pk
-                        console.log(item);
                         graph.nodes.push(item.fields);
                     })
-                    simulation = d3.forceSimulation()
+                    $.ajax({
+                      type: "POST",
+                      url: '/herramienta/analisisCursosrest',
+                      data: data2,
+                      success: function (data) {
+                       $.each(JSON.parse(data), function (i, item) {
+                        graph.links.push({source: item.fields.curso1, target: item.fields.curso2, calificacion:item.fields.calificacion });
+                        })
+                        simulation = d3.forceSimulation()
                         .force("x", d3.forceX().x(function(d) {
                             return xScale(d.semestre);
                           }))
@@ -78,7 +87,7 @@
                         .force("charge", d3.forceManyBody()
                           .strength(-20))
                         .force("link", d3.forceLink()
-                          .id(function (d) { return d['name']; }));
+                          .id(function (d) { return d['id']; }));
                         linksnuevos=graph.links;
                         nodes=graph.nodes;
                         simulation.nodes(nodes);
@@ -94,13 +103,16 @@
                                 .on("start", dragstarted)
                                 .on("drag", dragged)
                                 .on("end", dragended));
-                },
+
+                      },
+                    });
+                    },
 
             });
 
             };
 
-              const nodecolor='';
+              const nodecolor='nombre';
               const linkidtype='NUMBER';
               const linkid='id';
               var linksnuevos,nodes;
@@ -117,12 +129,14 @@
                   ctx.clearRect(0, 0, width, height);
 
                   ctx.font = "16px Arial";
+                  ctx.fillStyle = '#000000';
                   ctx.fillText("Semestre", 0, 50);
                   for (var i = 1; i <= 8; i++) {
                        ctx.fillText(i, xScale(i),50 );
                     }
                   ctx.beginPath();
-                  ctx.globalAlpha = 0.5;
+
+                  ctx.globalAlpha = 0.8;
                   ctx.strokeStyle = "#aaa";
                   linksnuevos.forEach(drawLink);
                   ctx.stroke();
@@ -144,7 +158,14 @@
                     selected.shift();
                     selected.push(d3.event.subject);
                 }
-                console.log(selected);
+                else if(selected[0].nombre == d3.event.subject.nombre)
+                {
+                    selected.shift();
+                }
+                else if(selected[1].nombre == d3.event.subject.nombre)
+                {
+                    selected.pop();
+                }
               }
               function dragged() {
                 d3.event.subject.fx = d3.event.x;
@@ -167,14 +188,12 @@
                 else{
                     ctx.arc(d.x, d.y, r, 0, Math.PI*2);
                 }
-                ctx.fillText(d.nombreCorto,d.x+r,d.y+r);
+                ctx.fillText(d.nombreCorto,d.x-r,d.y+4*r);
                 ctx.fill();
                 if(selected.length==2)
                 {
                     $("#buttonEvaluar").attr("disabled",false);
                     $("#buttonVer").attr("disabled",false);
-                    console.log(selected[0])
-                    console.log(selected[1]);
                     var params="/herramienta/analisisNuevo/"+selected[0].id+"/"+selected[1].id+"/"+$("#outcomesSelect").children("option:selected").val()+"/"+$("#periodoSelect").children("option:selected").val();
                     $("#linkEvaluar").attr("href",params);
 
@@ -185,6 +204,17 @@
                 }
               }
               function drawLink(l) {
+                if(l.calificacion=='bueno'){
+                    ctx.strokeStyle = "#008000";
+                }
+                else if(l.calificacion=='regular')
+                {
+                    ctx.strokeStyle = "#ffff00";
+                }
+                else
+                {
+                    ctx.strokeStyle = "#ff0000";
+                }
                 ctx.moveTo(l.source.x, l.source.y);
                 ctx.lineTo(l.target.x, l.target.y);
               }
