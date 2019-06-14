@@ -19,5 +19,5 @@ class AnalisisForm(forms.Form):
     CHOICES = [('bueno', 'bueno'),
                ('regular', 'regular'),
                ('malo', 'malo')]
-    calificacion=forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
-    descripcion = forms.CharField(widget=forms.Textarea(attrs={"rows": 10, "cols": 20,'class' : 'form-control'}))
+    calificacion=forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect, label='La relacion entre los instrumentos de medicion de los cursos es:')
+    descripcion = forms.CharField(widget=forms.Textarea(attrs={"rows": 10, "cols": 20,'class' : 'form-control'}), label='Descripcion del analisis')
