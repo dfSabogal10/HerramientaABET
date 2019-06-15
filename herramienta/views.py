@@ -19,6 +19,8 @@ import numpy as np
 
 # Create your views here.
 def index(request):
+    if(request.user.is_superuser):
+        logout(request)
     if(request.user.is_authenticated):
         cursos=models.Profesor.objects.get(username=request.user.username).cursos.all()
         return render(request, 'cursos.html', {'cursos':cursos})

@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62422dae-ad1a-493e-8bd2-7051a3829798" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/herramienta/templates/curso.html" afterPath="$PROJECT_DIR$/herramienta/templates/curso.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/herramienta/templates/home.html" afterPath="$PROJECT_DIR$/herramienta/templates/home.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/herramienta/views.py" afterPath="$PROJECT_DIR$/herramienta/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,11 +31,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="curso.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="curso.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/herramienta/templates/curso.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
+            <state relative-caret-position="439">
               <caret line="52" column="8" lean-forward="false" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/herramienta/templates/home.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="31" lean-forward="false" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -105,23 +116,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="herramientaAnalisis.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/herramienta/templates/herramientaAnalisis.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1602">
-              <caret line="207" column="60" lean-forward="false" selection-start-line="207" selection-start-column="60" selection-end-line="207" selection-end-column="60" />
-              <folding>
-                <element signature="n#style#0;n#h2#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/herramienta/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="395">
-              <caret line="206" column="103" lean-forward="false" selection-start-line="206" selection-start-column="103" selection-end-line="206" selection-end-column="103" />
+            <state relative-caret-position="195">
+              <caret line="22" column="22" lean-forward="false" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
               <folding>
                 <element signature="e#23#62#0" expanded="true" />
               </folding>
@@ -169,7 +168,6 @@
         <option value="$PROJECT_DIR$/herramienta/templates/herramientasDeMedicion.html" />
         <option value="$PROJECT_DIR$/herramienta/templates/herramienta.html" />
         <option value="$PROJECT_DIR$/Procfile" />
-        <option value="$PROJECT_DIR$/herramienta/templates/home.html" />
         <option value="$PROJECT_DIR$/herramienta/admin.py" />
         <option value="$PROJECT_DIR$/herramienta/models.py" />
         <option value="$PROJECT_DIR$/herramienta/forms.py" />
@@ -177,10 +175,11 @@
         <option value="$PROJECT_DIR$/herramienta/templates/herramientaAnalisis.html" />
         <option value="$PROJECT_DIR$/herramientaABET/settings.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
-        <option value="$PROJECT_DIR$/herramienta/views.py" />
         <option value="$PROJECT_DIR$/herramienta/templates/analisisNuevo.html" />
         <option value="$PROJECT_DIR$/herramienta/templates/analisisCambiar.html" />
         <option value="$PROJECT_DIR$/herramienta/templates/curso.html" />
+        <option value="$PROJECT_DIR$/herramienta/templates/home.html" />
+        <option value="$PROJECT_DIR$/herramienta/views.py" />
       </list>
     </option>
   </component>
@@ -777,13 +776,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/herramienta/templates/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="212" column="43" lean-forward="false" selection-start-line="212" selection-start-column="0" selection-end-line="213" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/herramientaABET/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -906,16 +898,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/herramienta/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="206" column="103" lean-forward="false" selection-start-line="206" selection-start-column="103" selection-end-line="206" selection-end-column="103" />
-          <folding>
-            <element signature="e#23#62#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/herramienta/templates/analisisNuevo.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="56">
@@ -937,9 +919,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/herramienta/templates/curso.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
+        <state relative-caret-position="439">
           <caret line="52" column="8" lean-forward="false" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="8" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/herramienta/templates/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="31" lean-forward="false" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/herramienta/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="22" column="22" lean-forward="false" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+          <folding>
+            <element signature="e#23#62#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
