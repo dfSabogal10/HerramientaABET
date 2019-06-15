@@ -9,7 +9,7 @@ from django.core import serializers
 from django.http import Http404
 from django.contrib.auth.decorators import  user_passes_test
 from django.contrib.auth.models import Group, User
-
+from django.contrib.auth.decorators import login_required
 from herramienta import models
 from models import Profesor
 from django.urls import reverse
@@ -58,12 +58,14 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
+@login_required
 def cursos_prerequisito(request):
     cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
     return render(request, 'cursosPrerequisitos.html',{'cursos':cursos})
 
 #servicio rest que retorna los prerequisitos de un curso
 @csrf_exempt
+@login_required
 def cursos_prerequisito_rest(request):
     curso = request.POST.get("curso")
     cursos = models.Profesor.objects.get(username=request.user.username).cursos.all().get(nombre=curso).prerequisitos.all()
@@ -71,12 +73,13 @@ def cursos_prerequisito_rest(request):
 
 #servicio rest que retorna las medidas de un outcome
 @csrf_exempt
+@login_required
 def medidas_outcome(request):
     outcome = request.POST.get("outcome")
     medidas = models.medidaOutcome.objects.filter(outcome__literal=outcome, tipo=0)
     return HttpResponse(serializers.serialize("json", medidas))
 
-
+@login_required
 def cursos_outcome(request):
     cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
     outcomes = models.OutcomeAbet.objects.all().order_by('literal')
@@ -84,12 +87,13 @@ def cursos_outcome(request):
 
 #servicio rest que retorna los cursos por outcome
 @csrf_exempt
+@login_required
 def cursos_outcome_rest(request):
     outcome = request.POST.get("outcome")
     cursos = models.Curso.objects.filter(medidas__outcome__literal=outcome).distinct()
     return HttpResponse(serializers.serialize("json", cursos))
 
-
+@login_required
 def curso(request, id):
     curso=models.Curso.objects.get(id=id)
     outcomes= models.OutcomeAbet.objects.filter(medidas__curso__id=id).distinct().order_by('literal')
@@ -100,13 +104,14 @@ def curso(request, id):
 
 #servicio rest que retorna las medidas de un outcome por curso
 @csrf_exempt
+@login_required
 def medidas_outcome_curso(request):
     outcome = request.POST.get("outcome")
     curso= request.POST.get("curso")
     medidas = models.medidaOutcome.objects.filter(outcome__literal=outcome, curso__nombre=curso)
     return HttpResponse(serializers.serialize("json", medidas))
 
-
+@login_required
 def herramientas(request, id):
     if request.method=='POST':
         form = HerramientasForm(request.POST)
@@ -117,7 +122,7 @@ def herramientas(request, id):
             cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
             return render(request, 'herramientasDeMedicion.html',{'herramientas': herramientas,'cursos':cursos, 'curso':curso, 'periodo':request.POST.get("periodo")})
 
-
+@login_required
 def planes_mejora(request, id):
     if request.method=='POST':
         form = PlanesForm(request.POST)
@@ -127,20 +132,20 @@ def planes_mejora(request, id):
             cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
             return render(request, 'planesDeMejora.html',{'planes': planes,'cursos':cursos, 'curso':curso, 'periodo':request.POST.get("periodo")})
 
-
+@login_required
 def herramienta(request, id):
     cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
     herramienta = models.InstrumentoMedicion.objects.get(id=id)
     return render(request, 'herramienta.html',{'cursos':cursos,'herramienta':herramienta})
 
-
+@login_required
 def herramienta_analisis(request):
     cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
     outcomes = models.OutcomeAbet.objects.all().order_by('literal')
     periodos= models.InstrumentoMedicion.objects.all().values_list('periodo', flat=True).distinct().order_by('periodo').reverse()
     return render(request, 'herramientaAnalisis.html',{'outcomes':outcomes, 'periodos':periodos,'cursos':cursos})
 
-
+@login_required
 def analisis_nuevo(request, id1, id2,outcome,periodo):
     cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
     curso1=models.Curso.objects.get(id=id1);
@@ -161,7 +166,7 @@ def analisis_nuevo(request, id1, id2,outcome,periodo):
         return render(request, 'analisisNuevo.html',{'cursos':cursos,'curso1':curso1, 'curso2':curso2, 'instrumentos':instrumentos,'periodo': periodo, 'outcome':outcome, 'analisisForm':analisisForm})
 
 
-
+@login_required
 def agregar_analisis(request, id1, id2,outcome,periodo):
 
     if request.method=='POST':
@@ -177,6 +182,7 @@ def agregar_analisis(request, id1, id2,outcome,periodo):
             return redirect('herramientaAnalisis')
 
 @csrf_exempt
+@login_required
 def analisis_cursos_rest(request):
     outcome = request.POST.get("outcome")
     periodo = request.POST.get("periodo")
@@ -184,7 +190,7 @@ def analisis_cursos_rest(request):
     analisis = models.AnalisisIntercurso.objects.filter(outcome__literal=outcome,periodo=periodo)
     return HttpResponse(serializers.serialize("json", analisis))
 
-
+@login_required
 def analisis_cambiar(request, id1, id2,outcome,periodo):
     cursos = models.Profesor.objects.get(username=request.user.username).cursos.all()
     curso1 = models.Curso.objects.get(id=id1);
@@ -222,7 +228,7 @@ def analisis_cambiar(request, id1, id2,outcome,periodo):
         return render(request, 'analisisCambiar.html',
                       {'cursos': cursos, 'curso1': curso1, 'curso2': curso2, 'instrumentos': instrumentos,
                        'periodo': periodo, 'outcome': outcome, 'analisisForm': analisisForm})
-
+@login_required
 def cambiar_analisis(request, id1, id2,outcome,periodo):
 
     if request.method=='POST':
