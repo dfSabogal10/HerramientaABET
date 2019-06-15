@@ -145,8 +145,8 @@ def analisis_nuevo(request, id1, id2,outcome,periodo):
     curso2=models.Curso.objects.get(id=id2);
     instrumentoCurso1 = models.InstrumentoMedicion.objects.filter(medidaOutcome__curso__id=id1, medidaOutcome__outcome__literal=outcome, periodo=periodo)
     instrumentoCurso2 = models.InstrumentoMedicion.objects.filter(medidaOutcome__curso__id=id2, medidaOutcome__outcome__literal=outcome, periodo=periodo)
-    medidasCurso1= models.medidaOutcome.objects.filter(curso__id=id1,outcome__literal=outcome, tipo=1).values_list('valor', flat=True).order_by('periodo')
-    medidasCurso2 = models.medidaOutcome.objects.filter(curso__id=id2, outcome__literal=outcome, tipo=1).values_list('valor', flat=True).order_by('periodo')
+    medidasCurso1= models.medidaOutcome.objects.filter(curso__id=id1,outcome__literal=outcome, tipo=0).values_list('valor', flat=True).order_by('periodo')
+    medidasCurso2 = models.medidaOutcome.objects.filter(curso__id=id2, outcome__literal=outcome, tipo=0).values_list('valor', flat=True).order_by('periodo')
     correlacion=None
     if medidasCurso1.count() ==medidasCurso2.count():
         correlacion=np.corrcoef(np.array(list(medidasCurso1)).astype(float), np.array(list(medidasCurso2)).astype(float))[0][1]
@@ -202,9 +202,9 @@ def analisis_cambiar(request, id1, id2,outcome,periodo):
     else:
         analisis=analisis[0]
 
-    medidasCurso1 = models.medidaOutcome.objects.filter(curso__id=id1, outcome__literal=outcome, tipo=1).values_list(
+    medidasCurso1 = models.medidaOutcome.objects.filter(curso__id=id1, outcome__literal=outcome, tipo=0).values_list(
         'valor', flat=True).order_by('periodo')
-    medidasCurso2 = models.medidaOutcome.objects.filter(curso__id=id2, outcome__literal=outcome, tipo=1).values_list(
+    medidasCurso2 = models.medidaOutcome.objects.filter(curso__id=id2, outcome__literal=outcome, tipo=0).values_list(
         'valor', flat=True).order_by('periodo')
     outcome = models.OutcomeAbet.objects.get(literal=outcome)
     correlacion = None
