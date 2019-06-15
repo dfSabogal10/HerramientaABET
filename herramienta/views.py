@@ -187,7 +187,13 @@ def analisis_cambiar(request, id1, id2,outcome,periodo):
                                                                   medidaOutcome__outcome__literal=outcome,
                                                                   periodo=periodo)
     instrumentos = map(None, instrumentoCurso1, instrumentoCurso2)
-    analisis= models.AnalisisIntercurso.objects.get(outcome__literal=outcome, periodo=periodo, curso1__id=id1,curso2__id=id2)
+    analisis= models.AnalisisIntercurso.objects.filter(outcome__literal=outcome, periodo=periodo, curso1__id=id1,curso2__id=id2)
+    if not analisis:
+        analisis=models.AnalisisIntercurso.objects.filter(outcome__literal=outcome, periodo=periodo, curso1__id=id2,curso2__id=id1)
+        if analisis:
+            analisis = analisis[0]
+    else:
+        analisis=analisis[0]
     outcome = models.OutcomeAbet.objects.get(literal=outcome)
     analisisForm = AnalisisForm({'calificacion':analisis.calificacion,'descripcion':analisis.descripcion})
     return render(request, 'analisisCambiar.html',
