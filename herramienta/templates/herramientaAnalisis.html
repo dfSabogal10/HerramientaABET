@@ -140,7 +140,6 @@
                   ctx.strokeStyle = "#aaa";
                   ctx.lineWidth = 3;
                   linksnuevos.forEach(drawLink);
-                  ctx.stroke();
                   ctx.globalAlpha = 1.0;
                   nodes.forEach(drawNode);
                 }
@@ -218,7 +217,7 @@
                 }
               }
               function drawLink(l) {
-                console.log(l)
+                console.log(l.calificacion=='buena')
                 if(l.calificacion=='buena'){
                     ctx.strokeStyle = "#32CD32";
                 }
@@ -232,6 +231,7 @@
                 }
                 ctx.moveTo(l.source.x, l.source.y);
                 ctx.lineTo(l.target.x, l.target.y);
+                ctx.stroke();
               }
 
           </script>
