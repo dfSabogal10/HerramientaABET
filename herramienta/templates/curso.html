@@ -98,7 +98,7 @@
 	var dataa={"outcome": $("#outcomesSelect").children("option:selected").val(), "curso": "{{curso.nombre}}"};
 	$.ajax({
   type: "POST",
-  url: '/herramienta/medidasoutcomeCurso',
+  url: '/medidasoutcomeCurso',
   data: dataa,
   success: function (data) {
 	var graphdata=[];

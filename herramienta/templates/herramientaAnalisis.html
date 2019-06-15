@@ -57,7 +57,7 @@
             var data2={"periodo": $("#periodoSelect").children("option:selected").val(), "outcome": $("#outcomesSelect").children("option:selected").val()};
             $.ajax({
               type: "POST",
-              url: '/herramienta/cursosoutcomerest',
+              url: '/cursosoutcomerest',
               data: dataa,
               success: function (data) {
 
@@ -70,7 +70,7 @@
                     })
                     $.ajax({
                       type: "POST",
-                      url: '/herramienta/analisisCursosrest',
+                      url: '/analisisCursosrest',
                       data: data2,
                       success: function (data) {
                        $.each(JSON.parse(data), function (i, item) {
@@ -200,14 +200,14 @@
                     {
                         $("#buttonVer").attr("disabled",false);
                         $("#buttonEvaluar").attr("disabled",true);
-                        var params="/herramienta/analisisCambiar/"+selected[0].id+"/"+selected[1].id+"/"+$("#outcomesSelect").children("option:selected").val()+"/"+$("#periodoSelect").children("option:selected").val();
+                        var params="/analisisCambiar/"+selected[0].id+"/"+selected[1].id+"/"+$("#outcomesSelect").children("option:selected").val()+"/"+$("#periodoSelect").children("option:selected").val();
                         $("#linkVer").attr("href",params);
                     }
                     else
                     {
                         $("#buttonVer").attr("disabled",true)
                         $("#buttonEvaluar").attr("disabled",false);
-                        var params="/herramienta/analisisNuevo/"+selected[0].id+"/"+selected[1].id+"/"+$("#outcomesSelect").children("option:selected").val()+"/"+$("#periodoSelect").children("option:selected").val();
+                        var params="/analisisNuevo/"+selected[0].id+"/"+selected[1].id+"/"+$("#outcomesSelect").children("option:selected").val()+"/"+$("#periodoSelect").children("option:selected").val();
                         $("#linkEvaluar").attr("href",params);
                     }
 

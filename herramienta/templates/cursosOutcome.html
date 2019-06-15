@@ -35,7 +35,7 @@ function getCursos() {
 var dataa={"outcome": $("#outcomesSelect").children("option:selected").val()};
 $.ajax({
   type: "POST",
-  url: '/herramienta/cursosoutcomerest',
+  url: '/cursosoutcomerest',
   data: dataa,
   success: function (data) {
         console.log(typeof(data))
@@ -46,7 +46,7 @@ $.ajax({
             $("#cursos").append(
                 '<div class="col-sm-4 py-2">'+
                 '<div class="card" style="height: 235px;">'+
-                  '<div id="herramienta_'+item.pk+'_nombre" class="card-header text-center"><a href="/herramienta/curso/'+item.pk+'">'+ item.fields.nombre+'</a></div>'+
+                  '<div id="herramienta_'+item.pk+'_nombre" class="card-header text-center"><a href="/curso/'+item.pk+'">'+ item.fields.nombre+'</a></div>'+
                   '<div class="card-body" >'+
                     '<h6>'+item.fields.area+'</h6>'+
                     '<hr />'+

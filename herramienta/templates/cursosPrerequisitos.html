@@ -32,7 +32,7 @@ function getCursos() {
 var dataa={"curso": $("#cursosSelect").children("option:selected").val()};
 $.ajax({
   type: "POST",
-  url: '/herramienta/cursosprerequisitorest',
+  url: '/cursosprerequisitorest',
   data: dataa,
   success: function (data) {
         console.log(typeof(data))

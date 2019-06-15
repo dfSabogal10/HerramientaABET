@@ -28,7 +28,7 @@
             </div>
             <div style="padding-top: 3%;">
                 <button id="btn_login" type="submit" class="btn btn-primary">Login</button>
-                <a href="/herramienta/" class="btn btn-secondary"/>Cancelar</a>
+                <a href="/" class="btn btn-secondary"/>Cancelar</a>
 
             </div>
         </form>
@@ -67,8 +67,7 @@ $('form').submit( function(e) {
             contentType: false,
             processData: false,
             success: function() {
-                //window.location.href = "http://localhost:8000/herramienta/";
-                       window.location.href = "/herramienta/";
+                       window.location.href = "/";
                      },
             error: function(xhr, status, error) {
 
