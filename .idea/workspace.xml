@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62422dae-ad1a-493e-8bd2-7051a3829798" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/herramienta/templates/curso.html" afterPath="$PROJECT_DIR$/herramienta/templates/curso.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/herramienta/templates/cursosOutcome.html" afterPath="$PROJECT_DIR$/herramienta/templates/cursosOutcome.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/herramienta/templates/cursosPrerequisitos.html" afterPath="$PROJECT_DIR$/herramienta/templates/cursosPrerequisitos.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/herramienta/templates/herramienta.html" afterPath="$PROJECT_DIR$/herramienta/templates/herramienta.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/herramienta/templates/herramientaAnalisis.html" afterPath="$PROJECT_DIR$/herramienta/templates/herramientaAnalisis.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/herramienta/templates/home.html" afterPath="$PROJECT_DIR$/herramienta/templates/home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/herramienta/templates/login.html" afterPath="$PROJECT_DIR$/herramienta/templates/login.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/herramientaABET/urls.py" afterPath="$PROJECT_DIR$/herramientaABET/urls.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -73,7 +65,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="analisisCambiar.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="analisisCambiar.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/herramienta/templates/analisisCambiar.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="123">
@@ -96,6 +88,18 @@
                 <marker date="1560574622213" expanded="false" signature="1093:1107" ph="..." />
                 <marker date="1560574622213" expanded="true" signature="1108:1452" ph="..." />
                 <marker date="1560574622213" expanded="true" signature="1310:1422" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="herramientaAnalisis.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/herramienta/templates/herramientaAnalisis.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="78">
+              <caret line="220" column="30" lean-forward="false" selection-start-line="220" selection-start-column="30" selection-end-line="220" selection-end-column="30" />
+              <folding>
+                <element signature="n#style#0;n#h2#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -129,16 +133,6 @@
               <folding>
                 <element signature="e#23#62#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/herramienta/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="19" column="48" lean-forward="true" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -192,11 +186,11 @@
         <option value="$PROJECT_DIR$/herramientaABET/urls.py" />
         <option value="$PROJECT_DIR$/herramienta/templates/login.html" />
         <option value="$PROJECT_DIR$/herramienta/templates/home.html" />
-        <option value="$PROJECT_DIR$/herramienta/templates/herramientaAnalisis.html" />
         <option value="$PROJECT_DIR$/herramienta/templates/herramienta.html" />
         <option value="$PROJECT_DIR$/herramienta/templates/cursosPrerequisitos.html" />
         <option value="$PROJECT_DIR$/herramienta/templates/cursosOutcome.html" />
         <option value="$PROJECT_DIR$/herramienta/templates/curso.html" />
+        <option value="$PROJECT_DIR$/herramienta/templates/herramientaAnalisis.html" />
       </list>
     </option>
   </component>
@@ -861,16 +855,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/herramienta/templates/herramientaAnalisis.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="18" column="9" lean-forward="true" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
-          <folding>
-            <element signature="n#style#0;n#h2#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/herramienta/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="169">
@@ -962,6 +946,16 @@
           <folding>
             <element signature="n#style#0;n#h5#0;n#div#0;n#form#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#form#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/herramienta/templates/herramientaAnalisis.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="220" column="30" lean-forward="false" selection-start-line="220" selection-start-column="30" selection-end-line="220" selection-end-column="30" />
+          <folding>
+            <element signature="n#style#0;n#h2#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
