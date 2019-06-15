@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62422dae-ad1a-493e-8bd2-7051a3829798" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/herramienta/templates/herramientaAnalisis.html" afterPath="$PROJECT_DIR$/herramienta/templates/herramientaAnalisis.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/herramienta/templates/base.html" afterPath="$PROJECT_DIR$/herramienta/templates/base.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -93,10 +94,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="herramientaAnalisis.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="herramientaAnalisis.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/herramienta/templates/herramientaAnalisis.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
+            <state relative-caret-position="1411">
               <caret line="219" column="32" lean-forward="false" selection-start-line="219" selection-start-column="32" selection-end-line="219" selection-end-column="32" />
               <folding>
                 <element signature="n#style#0;n#h2#0;n#!!top" expanded="true" />
@@ -115,11 +116,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/herramienta/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="74">
-              <caret line="7" column="75" lean-forward="false" selection-start-line="7" selection-start-column="75" selection-end-line="7" selection-end-column="75" />
+            <state relative-caret-position="300">
+              <caret line="59" column="22" lean-forward="false" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -160,6 +161,7 @@
       <find>order</find>
       <find>herramient</find>
       <find>herramienta</find>
+      <find>draw</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -171,7 +173,6 @@
         <option value="$PROJECT_DIR$/herramienta/apps.py" />
         <option value="$PROJECT_DIR$/herramienta/templates/cursos.html" />
         <option value="$PROJECT_DIR$/herramienta/templates/planesDeMejora.html" />
-        <option value="$PROJECT_DIR$/herramienta/templates/base.html" />
         <option value="$PROJECT_DIR$/herramienta/templates/herramientasDeMedicion.html" />
         <option value="$PROJECT_DIR$/Procfile" />
         <option value="$PROJECT_DIR$/herramienta/admin.py" />
@@ -191,6 +192,7 @@
         <option value="$PROJECT_DIR$/herramienta/templates/cursosOutcome.html" />
         <option value="$PROJECT_DIR$/herramienta/templates/curso.html" />
         <option value="$PROJECT_DIR$/herramienta/templates/herramientaAnalisis.html" />
+        <option value="$PROJECT_DIR$/herramienta/templates/base.html" />
       </list>
     </option>
   </component>
@@ -923,14 +925,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/herramienta/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74">
-          <caret line="7" column="75" lean-forward="false" selection-start-line="7" selection-start-column="75" selection-end-line="7" selection-end-column="75" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/herramienta/templates/analisisNuevo.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -952,11 +946,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/herramienta/templates/herramientaAnalisis.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
+        <state relative-caret-position="1411">
           <caret line="219" column="32" lean-forward="false" selection-start-line="219" selection-start-column="32" selection-end-line="219" selection-end-column="32" />
           <folding>
             <element signature="n#style#0;n#h2#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/herramienta/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="59" column="22" lean-forward="false" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
