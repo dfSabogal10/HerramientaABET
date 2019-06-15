@@ -73,7 +73,6 @@ def cursos_prerequisito_rest(request):
 
 #servicio rest que retorna las medidas de un outcome
 @csrf_exempt
-@login_required
 def medidas_outcome(request):
     outcome = request.POST.get("outcome")
     medidas = models.medidaOutcome.objects.filter(outcome__literal=outcome, tipo=0)
